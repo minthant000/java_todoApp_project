@@ -1,9 +1,7 @@
 package com.spring.todoApp.controller;
 
 import org.springframework.http.HttpStatus;
-// import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +25,9 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.register(request));
     }
 
-    // @ExceptionHandler
-    // public ResponseEntity<String> handleResourceNotFoundException(Exception e) {
-    //     return new ResponseEntity<>("Email can't be duplicate: " + e.getMessage(), HttpStatus.CONFLICT);
-    // }
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthentictionResponse> authenticate(@RequestBody @Valid AuthenticationRequest request){
         return ResponseEntity.ok(service.authenticate(request));
     }
+    
 }

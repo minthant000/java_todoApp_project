@@ -16,6 +16,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -65,8 +66,12 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private Date updated_at;
 
-    
     private Date emailVerifiedAt;
+
+    private String randomCode;
+
+    @OneToMany(mappedBy = "userId")
+    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
