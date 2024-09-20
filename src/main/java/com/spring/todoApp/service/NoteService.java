@@ -6,9 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 // import org.springframework.web.bind.annotation.PathVariable;
-
 import com.spring.todoApp.entity.Note;
-import com.spring.todoApp.entity.Priority;
+// import com.spring.todoApp.entity.Priority;
 import com.spring.todoApp.entity.User;
 import com.spring.todoApp.repository.NoteRepository;
 // import com.spring.todoApp.repository.UserRepository;
@@ -37,6 +36,18 @@ public class NoteService {
     public List<Note> findNoteByUserInPriority(Integer userId){
         return noteRepository.findAllNoteByUserIdOrderedByPriority(userId);
     }
+
+    // search by keyword
+    public List<Note> searchNoteByUser(String keyword, Integer userId){
+        return noteRepository.searchByKeyword(keyword,userId);
+    }
+
+    // @GetMapping("/{userId}/searchKeyword/")
+    // public ResponseEntity<List<Note>> searchingKeyword(@RequestParam String keyword,@PathVariable Integer userId) {
+    //     List<Note> notes=noteService.searchingNote(keyword, userId);
+    //     return  new ResponseEntity<>(notes,HttpStatus.OK);
+    // }
+
     // create note
     public Note createNote(Note note,User user){
         Note newNote = Note.builder()
@@ -67,11 +78,5 @@ public class NoteService {
         Note note = noteRepository.findById(id).orElseThrow(() -> new RuntimeException("Note not found with id: " + id));
         noteRepository.delete(note);
     }
-
-    // // search by keyword
-    // public List<Note> searchNotes(String keyword){
-    //     return noteRepository.searchByKeyword(keyword);
-    // }
-
     
 }

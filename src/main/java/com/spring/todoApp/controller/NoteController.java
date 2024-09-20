@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.todoApp.entity.Note;
@@ -41,7 +42,7 @@ public class NoteController {
     @GetMapping("/notes")
     public ResponseEntity<List<Note>> getAllNotes(User user){
         List<Note> note = noteService.getAllNotes(user);
-        return new ResponseEntity<>(note, HttpStatus.FOUND);
+        return new ResponseEntity<>(note, HttpStatus.FOUND);        
     }
 
     // sorted by date
@@ -58,6 +59,14 @@ public class NoteController {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Note not found with id: " + userId));
         List<Note> notes = noteService.findNoteByUserInPriority(user.getId());
         return new ResponseEntity<>(notes, HttpStatus.OK);
+    }
+
+    // search note
+    @GetMapping("/{userId}/searchNote")
+    public ResponseEntity<List<Note>> searchNoteByUser(@RequestParam String keyword,@PathVariable Integer userId){
+        // User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Note not found with id: " + userId));
+        List<Note> notes = noteService.searchNoteByUser(keyword, userId);
+        return new ResponseEntity<>(notes, HttpStatus.FOUND);
     }
 
     // create note

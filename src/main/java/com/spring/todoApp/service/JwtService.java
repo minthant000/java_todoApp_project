@@ -2,6 +2,8 @@ package com.spring.todoApp.service;
 import java.security.Key;
 
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class JwtService {
 
 private static final String SECRET_KEY = "30FBF615DE951E124CB844B2C7C5C87B699BD1438FFAF584E27E278DAAFDF206";
 
+@Autowired
 private TokenRepository tokenRepository;
 
     public String extractUsername(String token) {
@@ -46,7 +49,7 @@ private TokenRepository tokenRepository;
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

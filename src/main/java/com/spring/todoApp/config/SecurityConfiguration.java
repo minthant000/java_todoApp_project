@@ -21,6 +21,12 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final CustomLogoutHandler logoutHandler;
+    private static final String[] White_List_urls = {
+        "/api/v1/auth/register",
+        "/api/v1/auth/authenticate",
+        "/api/v1/auth/verify",
+        "/api/v1/auth/resendCode"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -28,7 +34,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/v1/**")
+                        .requestMatchers(White_List_urls)
                         .permitAll()
                         .anyRequest()
                         .authenticated())

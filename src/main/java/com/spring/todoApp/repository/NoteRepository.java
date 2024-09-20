@@ -12,10 +12,8 @@ import com.spring.todoApp.entity.User;
 
 public interface NoteRepository extends JpaRepository<Note, Integer> {
     
-    // @Query("SELECT n from Note WHERE n.title LIKE %:keyword% OR t.description LIKE %:keyword%")
-    // List<Note> searchByKeyword(String keyword);
-
-    // List<Note> findAllByOrderByPriorityAsc();
+    @Query("SELECT DISTINCT n FROM Note n LEFT JOIN n.user u WHERE (LOWER(n.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(n.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND u.id = :userId ORDER BY n.priority ASC")
+    List<Note> searchByKeyword(@Param("keyword") String keyword, @Param("userId") Integer userId);
 
     List<Note> findAllByUser(User user);
 
@@ -24,5 +22,4 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
 
     @Query("SELECT n FROM Note n INNER JOIN User u ON n.user.id = u.id WHERE n.user.id = :userId ORDER BY n.priority ASC")
     List<Note> findAllNoteByUserIdOrderedByPriority(@Param("userId") Integer userId);
-    // List<Note> findALlByOrderByPriorityDesc();
 }
