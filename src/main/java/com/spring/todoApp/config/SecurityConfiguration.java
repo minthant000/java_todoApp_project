@@ -25,7 +25,9 @@ public class SecurityConfiguration {
         "/api/v1/auth/register",
         "/api/v1/auth/authenticate",
         "/api/v1/auth/verify",
-        "/api/v1/auth/resendCode"
+        "/api/v1/auth/resendCode",
+        "/api/v1/auth/forgetPassword",
+        "/api/v1/auth/renewPassword"
     };
 
     @Bean
