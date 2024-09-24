@@ -1,4 +1,4 @@
-package com.spring.todoApp.controller;
+package com.spring.todoApp.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.todoApp.controller.AuthentictionResponse;
 import com.spring.todoApp.repository.TokenRepository;
 import com.spring.todoApp.repository.UserRepository;
 import com.spring.todoApp.request.ForgetPasswordRequest;
 import com.spring.todoApp.request.UserDataUpdateRequest;
 import com.spring.todoApp.request.UserProfileUpdateRequest;
+import com.spring.todoApp.response.AuthentictionResponse;
 
 import lombok.RequiredArgsConstructor;
 

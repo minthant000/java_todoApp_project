@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.todoApp.entity.User;
 import com.spring.todoApp.repository.UserRepository;
+import com.spring.todoApp.request.RandomCodeRequest;
 import com.spring.todoApp.service.EmailSender;
 
 import jakarta.validation.Valid;

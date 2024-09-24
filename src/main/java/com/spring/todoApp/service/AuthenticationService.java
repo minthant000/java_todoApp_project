@@ -1,4 +1,4 @@
-package com.spring.todoApp.controller;
+package com.spring.todoApp.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +15,8 @@ import com.spring.todoApp.entity.User;
 import com.spring.todoApp.exception.ValidationException;
 import com.spring.todoApp.repository.TokenRepository;
 import com.spring.todoApp.repository.UserRepository;
-import com.spring.todoApp.service.EmailSender;
-import com.spring.todoApp.service.JwtService;
+import com.spring.todoApp.request.AuthenticationRequest;
+import com.spring.todoApp.response.AuthentictionResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -108,29 +108,6 @@ public class AuthenticationService {
         return null;
        }
 
-        
-        // if (user.getEmailVerifiedAt().equals(null)) {
-        //     String randomCode = getRandomNumberString();
-
-        //     emailSender.send(request.getEmail(),
-        //     "<html>" +
-        //                         "<body>" +
-        //                         "<h2>Dear, </h2>"
-        //                         + "<br/> Your email is not verified yet.Please verify. <br/>" +
-        //                 "Your Verification code is ."
-        //                 + "<br/> "  + "<u>" + randomCode
-        //     +"</u>" +
-        //                 "<br/> Regards,<br/>" +
-        //                 "MFA Registration team" +
-        //                 "</body>" +
-        //                 "</html> ");
-        //      return AuthentictionResponse
-        //         .builder()
-        //         .token(null)
-        //         .build();
-        // }else{
-        //     return AuthentictionResponse.builder().token(jwtToken).build();
-        // }
     }
 
     private void saveToken(User user, String jwtToken) {

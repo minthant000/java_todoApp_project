@@ -1,15 +1,9 @@
-package com.spring.todoApp.controller;
+package com.spring.todoApp.request;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
-// import org.hibernate.validator.constraints.UniqueElements;
-
-// import jakarta.validation.constraints.Email;
-// import jakarta.validation.constraints.NotEmpty;
-// import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
