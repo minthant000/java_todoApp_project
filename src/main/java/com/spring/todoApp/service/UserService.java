@@ -1,5 +1,7 @@
 package com.spring.todoApp.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,10 @@ public class UserService {
 
     @Autowired
     private TokenRepository tokenRepository;
+
+
+    @Autowired
+    private FileUploadService fileUploadService;
     
     private void saveToken(User user, String jwtToken) {
         Token token = Token.builder()
@@ -81,11 +87,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // update user profile
-    public User updateProfile(UserProfileUpdateRequest request){
+    // update profile
+    public User updateProfile(UserProfileUpdateRequest request) throws IOException{
         User user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new IllegalStateException("User not found"));
-        user.setProfilePath(request.getProfilePath());
+        String filePath = fileUploadService.uploadImage(request.getProfilePath(), "user");
+        user.setProfilePath(filePath);
         return userRepository.save(user);
     }
 }

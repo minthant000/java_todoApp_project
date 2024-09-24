@@ -1,5 +1,6 @@
 package com.spring.todoApp.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,6 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -17,6 +23,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class SecurityConfiguration {
+
+    @Value("${cloud.aws.region.static}")    
+    private String region;
+    
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -51,5 +66,15 @@ public class SecurityConfiguration {
                         ));       
 
         return http.build();
+    }
+
+    @Bean
+    public AmazonS3 s3Client() {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
+        return AmazonS3ClientBuilder.standard()
+                .withRegion(region)
+              //  .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, region))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .build();
     }
 }

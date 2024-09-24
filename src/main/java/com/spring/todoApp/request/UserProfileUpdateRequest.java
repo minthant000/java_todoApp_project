@@ -1,5 +1,7 @@
 package com.spring.todoApp.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -16,5 +18,5 @@ public class UserProfileUpdateRequest {
     @NotBlank(message = "Email cannot be null")
     private String email;
 
-    private String profilePath;
+    private MultipartFile profilePath;
 }

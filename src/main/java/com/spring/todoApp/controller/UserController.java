@@ -1,11 +1,14 @@
 package com.spring.todoApp.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,9 +77,9 @@ public class UserController {
         return ResponseEntity.ok("Update successfully ");
     }
 
-    @PutMapping("/updateUserProfile")
-    public ResponseEntity<String> updateProfile(@Valid @RequestBody UserProfileUpdateRequest request){
+    @PostMapping("/updateUserProfile")
+    public ResponseEntity<String> updateProfile( @ModelAttribute UserProfileUpdateRequest request) throws IOException{
         userService.updateProfile(request);
-        return ResponseEntity.ok("Profile update successfully");
+        return ResponseEntity.ok("Profile Update successfully");
     }
 }
